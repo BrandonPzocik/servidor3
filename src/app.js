@@ -31,17 +31,26 @@ app.post("/clientes", (req, res) => {
     res.json({mensaje: "cliente creado con exito"})
 })
 //RUTA PUT 
-//editar un usuario 
+//editar un cliente 
 app.put("/clientes/:id", (req, res) => {
     const id = parseInt(req.params.id)
     const actualizar = bd.find((cliente) => cliente.id === id)
     const {cliente} = req.body 
-
     actualizar.cliente = cliente
     console.log(actualizar)
     res.json({mensaje: "cliente actualizado con exitooo"})
 })
+
+//RUTA DELETE
+//eliminamos un cliente 
+app.delete("/clientes/:id", (req, res) => {
+    const id = parseInt(req.params.id)
+    const obtenerCliente = bd.find( (cliente) => cliente.id === id )
+    const clienteIndex = bd.indexOf(obtenerCliente)
+    const eliminarCliente = bd.splice(clienteIndex)
+    res.json({mensaje:"cliente eliminado correctamenteee"})
+})
 //ponemos en escucha el servidor 
 app.listen(3000, ()=>{
-    console.log("servidor corriendo")
+    console.log("servidor corriendo en el puerto 3000")
 });
